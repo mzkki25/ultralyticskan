@@ -55,6 +55,8 @@ from .block import (
     RepNCSPELAN4,
     RepVGGDW,
     ResNetLayer,
+    C2fKAN,
+    SPPFWithKAN,
     SCDown,
 )
 from .conv import (
@@ -71,6 +73,7 @@ from .conv import (
     LightConv,
     RepConv,
     SpatialAttention,
+    ConvWithKAN
 )
 from .head import OBB, Classify, Detect, Pose, RTDETRDecoder, Segment, WorldDetect, v10Detect
 from .transformer import (
@@ -156,4 +159,7 @@ __all__ = (
     "C2fCIB",
     "Attention",
     "PSA",
+    "ConvWithKAN",
+    "C2fKAN",
+    "SPPFWithKAN"
 )

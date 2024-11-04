@@ -7,6 +7,10 @@ import numpy as np
 import torch
 import torch.nn as nn
 
+from .convkan.convkan_layer import ConvKAN
+from .convkan.fastkanconv import FastConvKAN
+from .activation import AGLU # add AGLU activation function
+
 __all__ = (
     "Conv",
     "Conv2",
@@ -20,7 +24,7 @@ __all__ = (
     "SpatialAttention",
     "CBAM",
     "Concat",
-    "RepConv",
+    "RepConv"
 )
 
 
@@ -53,6 +57,26 @@ class Conv(nn.Module):
         """Perform transposed convolution of 2D data."""
         return self.act(self.conv(x))
 
+class ConvWithKAN(nn.Module):
+    """Standard convolution with args(ch_in, ch_out, kernel, stride, padding, groups, dilation, activation)."""
+
+    default_act = nn.SiLU()  # default activation
+    # other activation functions can be used
+    # default_act = AGLU()
+
+    def __init__(self, c1, c2, k=1, s=1, p=None, g=1, d=1, act=True):
+        """Initialize Conv layer with given arguments including activation."""
+        super().__init__()
+        self.conv = FastConvKAN(c1, c2, k, s, autopad(k, p, d), groups=g, dilation=d)
+        self.bn = nn.BatchNorm2d(c2)
+
+    def forward(self, x):
+        """Apply convolution, batch normalization to input tensor."""
+        return self.bn(self.conv(x))
+
+    def forward_fuse(self, x):
+        """Perform transposed convolution of 2D data."""
+        return self.conv(x)
 
 class Conv2(Conv):
     """Simplified RepConv module with Conv fusing."""

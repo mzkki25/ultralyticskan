@@ -60,6 +60,9 @@ from ultralytics.nn.modules import (
     SCDown,
     Segment,
     WorldDetect,
+    ConvWithKAN,
+    C2fKAN,
+    SPPFWithKAN,
     v10Detect,
 )
 from ultralytics.utils import DEFAULT_CFG_DICT, DEFAULT_CFG_KEYS, LOGGER, colorstr, emojis, yaml_load
@@ -996,6 +999,9 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
             DWConvTranspose2d,
             C3x,
             RepC3,
+            ConvWithKAN,
+            C2fKAN,
+            SPPFWithKAN,
             PSA,
             SCDown,
             C2fCIB,
