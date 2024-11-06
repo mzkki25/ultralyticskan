@@ -204,6 +204,12 @@ class SPPFWithKAN(nn.Module):
         self.cv1 = ConvWithKAN(c1, c_, 1, 1)
         self.cv2 = ConvWithKAN(c_ * 4, c2, 1, 1)
         self.m = nn.MaxPool2d(kernel_size=k, stride=1, padding=k // 2)
+        
+    def forward(self, x):
+        """Forward pass through Ghost Convolution block."""
+        y = [self.cv1(x)]
+        y.extend(self.m(y[-1]) for _ in range(3))
+        return self.cv2(torch.cat(y, 1))
 
 
 class C1(nn.Module):
