@@ -22,3 +22,5 @@ class EigenCAM(BaseCAM):
                       grads,
                       eigen_smooth):
         return get_2d_projection(activations)
+    
+    
