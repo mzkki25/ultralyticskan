@@ -69,14 +69,15 @@ class ConvWithKAN(nn.Module):
         super().__init__()
         self.conv = FastConvKAN(c1, c2, k, s, autopad(k, p, d), groups=g, dilation=d)
         self.bn = nn.BatchNorm2d(c2)
+        self.act = self.default_act if act is True else act if isinstance(act, nn.Module) else nn.Identity()
 
     def forward(self, x):
         """Apply convolution, batch normalization to input tensor."""
-        return self.bn(self.conv(x))
+        return self.act(self.bn(self.conv(x)))
 
     def forward_fuse(self, x):
         """Perform transposed convolution of 2D data."""
-        return self.conv(x)
+        return self.act(self.conv(x))
 
 class Conv2(Conv):
     """Simplified RepConv module with Conv fusing."""
