@@ -55,8 +55,9 @@ from .block import (
     RepNCSPELAN4,
     RepVGGDW,
     ResNetLayer,
-    C2fKAN,
-    SPPFWithKAN,
+    C2fKAN, # add C2fKAN
+    SPPFWithKAN, # add SPPFWithKAN
+    C2fx, # add C2fx
     SCDown,
 )
 from .conv import (
@@ -160,6 +161,7 @@ __all__ = (
     "Attention",
     "PSA",
     "ConvWithKAN",
-    "C2fKAN",
-    "SPPFWithKAN"
+    "C2fKAN", # add C2fKAN
+    "SPPFWithKAN", # add SPPFWithKAN
+    "C2fx" # add C2fx
 )
