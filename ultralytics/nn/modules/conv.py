@@ -70,12 +70,10 @@ class ConvWithKAN(nn.Module):
 
     def forward(self, x):
         """Apply convolution, batch normalization to input tensor."""
-        # return self.act(self.bn(self.conv(x)))
         return self.bn(self.conv(x))
 
     def forward_fuse(self, x):
         """Perform transposed convolution of 2D data."""
-        # return self.act(self.conv(x))
         return self.conv(x)
 
 class Conv2(Conv):
